@@ -1,0 +1,21 @@
+.section
+{
+    color: blue;
+}
+.itemtype
+{
+float: right;
+}
+.card-img
+{
+    width: 100%;
+    height: 100%;
+}
+.Createdby
+{
+    float: right;
+}
+#cards
+{
+    left: 11%;
+}
