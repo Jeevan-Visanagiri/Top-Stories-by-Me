@@ -27,6 +27,7 @@ var sections=[
 
     var dropdownmenu=document.createElement("div");  //drop down menu div
     dropdownmenu.className="dropdown-menu dropdown-menu-right";
+    dropdownmenu.id="dropdownmenu"
     btndropdown.appendChild(dropdownmenu);
 
     var button=[],buttontext=[];  //initilizing buttons
