@@ -57,7 +57,7 @@ async function getStories(section) {
     showStories(response);      
     } catch (error) {
         console.log(error);
-        alert(error);
+        //alert(error)
     }
   
 }
@@ -71,36 +71,43 @@ function showStories(response) {  //Showing tohe response in the UI
     collapsediv.className='accordion';
     collapsediv.id='accordionExample';
     div1.appendChild(collapsediv);
-    var collapsecard=[];
-    for (let i = 0; i < response.results.length; i++) {
+    var collapsecard=[],headerdeading=[];
+    for (var i = 0; i < response.results.length; i++) {
 
     console.log(response.results.length);
     
     collapsecard[i]=document.createElement("div");
     collapsecard[i].className='card';
     collapsediv.appendChild(collapsecard[i]);
+    
+    
+
 
     collapseheader[i]=document.createElement('div');
     collapseheader[i].className='card-header';
     collapseheader[i].id='headingOne';
     collapsecard[i].appendChild(collapseheader[i]);
 
+    headerdeading[i]=document.createElement('h5');
+    headerdeading[i].className="mb-0";
+    collapseheader[i].appendChild(headerdeading[i]);
+
     collapsebutton[i]=document.createElement('button');
     collapsebutton[i].className="btn btn-link btn-block text-left";
     collapsebuttontxt[i]=document.createTextNode(response.results[i].title);
     collapsebutton[i].appendChild(collapsebuttontxt[i]);
-    collapsebutton[i].setAttribute('type','button')
+    collapsebutton[i].setAttribute('type','button');
     collapsebutton[i].setAttribute('data-toggle',"collapse");
     collapsebutton[i].setAttribute('data-target',"#collapseOne");
     collapsebutton[i].setAttribute('aria-expanded',"true");
-    collapsebutton[i].setAttribute('aria-controls',"collapseOne")
-    collapseheader[i].appendChild(collapsebutton[i]);
+    collapsebutton[i].setAttribute('aria-controls',"collapseOne");
+    headerdeading[i].appendChild(collapsebutton[i]);
 
     collapsebody[i]=document.createElement('div');
-    collapsebody[i].className="collap";
-    collapsebody[i].id="collapseTwo";
+    collapsebody[i].className="collapse show";
+    collapsebody[i].id="collapseOne";
     collapsebody[i].setAttribute('data-parent',"#accordionExample");
-    collapsebody[i].setAttribute('aria-labelledby',"headingOne")
+    collapsebody[i].setAttribute('aria-labelledby',"headingOne");
     collapsecard[i].appendChild(collapsebody[i]);
 
     collapsecardbody[i]=document.createElement('div');
@@ -110,7 +117,7 @@ function showStories(response) {  //Showing tohe response in the UI
     card[i] = document.createElement('div');
     card[i].className='card mb-3';
     card[i].id="cards";
-    card[i].setAttribute("style","max-width:900px")
+    card[i].setAttribute("style","max-width:900px");
     collapsecardbody[i].appendChild(card[i]);
 
     cardhead[i]=document.createElement("div");
@@ -155,7 +162,7 @@ function showStories(response) {  //Showing tohe response in the UI
     byline[i].innerHTML=response.results[i].byline;
     cardbody[i].appendChild(byline[i]);
 
-    readMore[i]=document.createElement("a")
+    readMore[i]=document.createElement("a");
     readMore[i].className="readmorelink";
     textlink[i]=document.createTextNode("Read more...");
     readMore[i].appendChild(textlink[i]);
@@ -169,7 +176,8 @@ function showStories(response) {  //Showing tohe response in the UI
     img[i]=document.createElement('img');
     img[i].className="card-img";
     imagediv[i].appendChild(img[i]);
-    img[i].setAttribute("src",response.results[i].multimedia[4].url)
+    if(response.results[i].multimedia!==null)
+    img[i].setAttribute("src",response.results[i].multimedia[response.results[i].multimedia.length-1].url);
 
     }
 }
