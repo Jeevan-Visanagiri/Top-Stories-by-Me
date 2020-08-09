@@ -8,7 +8,9 @@ var sections=[
     var div=document.createElement('div');  ///creating container
     div.className='buttonelement';
     document.body.appendChild(div);
-    
+    var h2=document.createElement('h2');
+    h2.innerHTML="Today Top Stories.";
+    div.appendChild(h2);
     var div1=document.createElement('div');
     div1.className="container";
     document.body.appendChild(div1);
