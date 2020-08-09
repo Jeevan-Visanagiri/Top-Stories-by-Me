@@ -47,26 +47,71 @@ for (let i = 0; i < sections.length; i++) {  //adding event listener to buttons
     });
     
 }
-async function getStories(section) {   //fetching stories from API
+async function getStories(section) { 
+    try {
+              //fetching stories from API
     var key ='j67b2fsebYks70wr46CwRNGMzglAKtng';
     var request =await fetch('https://api.nytimes.com/svc/topstories/v2/'+section+'.json?api-key='+key);
     var response= await request.json();
     console.log(response);
-    showStories(response);
+    showStories(response);      
+    } catch (error) {
+        console.log(error);
+        alert(error);
+    }
+  
 }
 
 function showStories(response) {  //Showing tohe response in the UI
 
     var card=[],cardhead=[],cardcolumn=[],cardbody=[],section=[],itemtype=[],cardtitle=[],createddate=[];
     var cardtext=[],byline=[] , readMore=[],textlink=[],img=[],imagediv=[];
+    var collapsediv,collapseheader=[],collapsebutton=[],collapsebody=[],collapsebuttontxt=[],collapsecardbody=[];
+    collapsediv=document.createElement('div');
+    collapsediv.className='accordion';
+    collapsediv.id='accordionExample';
+    div1.appendChild(collapsediv);
+    var collapsecard=[];
     for (let i = 0; i < response.results.length; i++) {
-    
+
     console.log(response.results.length);
+    
+    collapsecard[i]=document.createElement("div");
+    collapsecard[i].className='card';
+    collapsediv.appendChild(collapsecard[i]);
+
+    collapseheader[i]=document.createElement('div');
+    collapseheader[i].className='card-header';
+    collapseheader[i].id='headingOne';
+    collapsecard[i].appendChild(collapseheader[i]);
+
+    collapsebutton[i]=document.createElement('button');
+    collapsebutton[i].className="btn btn-link btn-block text-left";
+    collapsebuttontxt[i]=document.createTextNode(response.results[i].title);
+    collapsebutton[i].appendChild(collapsebuttontxt[i]);
+    collapsebutton[i].setAttribute('type','button')
+    collapsebutton[i].setAttribute('data-toggle',"collapse");
+    collapsebutton[i].setAttribute('data-target',"#collapseOne");
+    collapsebutton[i].setAttribute('aria-expanded',"true");
+    collapsebutton[i].setAttribute('aria-controls',"collapseOne")
+    collapseheader[i].appendChild(collapsebutton[i]);
+
+    collapsebody[i]=document.createElement('div');
+    collapsebody[i].className="collap";
+    collapsebody[i].id="collapseTwo";
+    collapsebody[i].setAttribute('data-parent',"#accordionExample");
+    collapsebody[i].setAttribute('aria-labelledby',"headingOne")
+    collapsecard[i].appendChild(collapsebody[i]);
+
+    collapsecardbody[i]=document.createElement('div');
+    collapsecardbody[i].className='card-body';
+    collapsebody[i].appendChild(collapsecardbody[i]);
+
     card[i] = document.createElement('div');
     card[i].className='card mb-3';
     card[i].id="cards";
     card[i].setAttribute("style","max-width:900px")
-    div1.appendChild(card[i]);
+    collapsecardbody[i].appendChild(card[i]);
 
     cardhead[i]=document.createElement("div");
     cardhead[i].className="row no-gutters";
@@ -128,22 +173,21 @@ function showStories(response) {  //Showing tohe response in the UI
 
     }
 }
-
 /*
-<div class ="container">
-<div class="card mb-3" style="max-width: 600px;">
-<div class="row no-gutters">
-  
-  <div class="col-md-8">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting loosjdvbkssc NDkshbvshdavbshdvb shbhjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasnc                      snsadasldntext below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <img src="https://static01.nyt.com/images/2020/08/07/world/07india-plane-sub/merlin_175429530_ebd030f5-cdce-404d-955a-73a0866d6803-articleInline.jpg" class="card-img" alt="..." style="width: 100%;height:100%;">
-  </div>
-</div>
-</div>
-</div>`*/
+</div>*/
